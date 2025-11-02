@@ -34,12 +34,15 @@ fun CounselorHomeScreen(mainNavController: NavController) {
             .verticalScroll(rememberScrollState())
     ) {
         // Learning Module card
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Referral card
         HomeCard(
-            imageResId = R.drawable.card_learning_module, // 'assets/images/37848961.png'
-            title = "Learning Module",
+            title = "Referral",
+            imageResId = R.drawable.card_referral, // <-- FIXED: Was 'imageId'
             onClick = {
-                // This is your Navigator.push to PreTestScreen
-                mainNavController.navigate("module") // <-- This line is updated
+                // This is the new navigation link
+                mainNavController.navigate("create_referral") // <-- FIXED: Was 'navController'
             }
         )
 

@@ -2,18 +2,22 @@ package com.example.sparkapp
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType // <-- ADDED IMPORT
-import androidx.navigation.navArgument // <-- ADDED IMPORT
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sparkapp.ui.screens.SplashScreen
+import com.example.sparkapp.ui.screens.checklist.ChecklistScreen
 import com.example.sparkapp.ui.screens.counselor.CounselorDashboardScreen
+import com.example.sparkapp.ui.screens.history.ScoreDetailScreen // <-- ADDED IMPORT
 import com.example.sparkapp.ui.screens.login.LoginScreen
-import com.example.sparkapp.ui.screens.module.FullScreenPlayerScreen // <-- ADDED IMPORT
-import com.example.sparkapp.ui.screens.module.ModuleScreen // <-- ADDED IMPORT
+import com.example.sparkapp.ui.screens.module.FullScreenPlayerScreen
+import com.example.sparkapp.ui.screens.module.ModuleScreen
+import com.example.sparkapp.ui.screens.posttest.PostTestScreen
 import com.example.sparkapp.ui.screens.pretest.PreTestScreen
-import com.example.sparkapp.ui.screens.scenario.ScenarioScreen // <-- ADDED IMPORT
+import com.example.sparkapp.ui.screens.referral.ReferralScreen
+import com.example.sparkapp.ui.screens.scenario.ScenarioScreen
 import com.example.sparkapp.ui.screens.signup.SignUpScreen
 
 // Define all our app's "routes"
@@ -61,8 +65,8 @@ fun MainNavigation() {
             PreTestScreen(navController = navController)
         }
 
-        composable(AppRoutes.REFERRAL) {
-            Text("REFERRAL SCREEN PLACEHOLDER")
+        composable("create_referral") {
+            ReferralScreen(navController = navController)
         }
 
         // --- REPLACED PLACEHOLDER WITH NEW ROUTES ---
@@ -86,18 +90,36 @@ fun MainNavigation() {
             }
         }
 
-        // --- NEWLY ADDED ROUTES ---
-
         // Route for the Case Scenario quiz
         composable(route = "scenario") {
             ScenarioScreen(navController = navController)
         }
 
-        // This is the NEXT screen we will build
+        // --- UPDATED ROUTE ---
         composable(route = "checklist") {
-            // ChecklistScreen(navController = navController)
-            // For now, just add a placeholder
-            Text("Checklist Page Placeholder")
+            ChecklistScreen(navController = navController)
+        }
+
+        // --- UPDATED ROUTE ---
+        composable("post_test") {
+            PostTestScreen(navController = navController)
+        }
+
+        // --- NEWLY ADDED ROUTE ---
+        composable(
+            route = "score_detail/{name}/{score}/{total}",
+            arguments = listOf(
+                navArgument("name") { type = NavType.StringType },
+                navArgument("score") { type = NavType.StringType },
+                navArgument("total") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            ScoreDetailScreen(
+                navController = navController,
+                name = backStackEntry.arguments?.getString("name") ?: "Unknown",
+                score = backStackEntry.arguments?.getString("score") ?: "0",
+                total = backStackEntry.arguments?.getString("total") ?: "0"
+            )
         }
     }
 }

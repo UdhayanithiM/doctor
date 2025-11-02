@@ -52,6 +52,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
+    // --- THIS IS THE NEW LINE TO FIX THE ICON ERRORS ---
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.8")
+    implementation("androidx.compose.material:material-icons-extended:1.6.6")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -67,7 +72,7 @@ dependencies {
 
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
-    // --- UPDATED DEPENDENCIES ---
+    // --- UPDATED DEPENDENCIES (from your file) ---
     // Video Player (Media3/ExoPlayer) - Updated to new versions
     implementation("androidx.media3:media3-exoplayer:1.3.1") // Was 1.2.0
     implementation("androidx.media3:media3-ui:1.3.1")       // Was 1.2.0
@@ -79,4 +84,5 @@ dependencies {
     // ViewModel & Navigation
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.5")
+
 }

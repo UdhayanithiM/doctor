@@ -1,6 +1,5 @@
 package com.example.sparkapp.ui.screens.counselor
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -16,12 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.sparkapp.AppRoutes
+import com.example.sparkapp.ui.screens.chat.ChatScreen // <-- ADDED IMPORT
+import com.example.sparkapp.ui.screens.history.HistoryScreen
 import com.example.sparkapp.ui.theme.SparkAppPurple
 
 // --- This sealed class defines the 4 tabs ---
@@ -109,16 +108,16 @@ fun CounselorDashboardScreen(mainNavController: NavController) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(CounselorScreen.Home.route) {
-                // We will build this screen in the next step
+                // CounselorHomeScreen's parameter is 'mainNavController'
                 CounselorHomeScreen(mainNavController = mainNavController)
             }
             composable(CounselorScreen.History.route) {
-                // Placeholder for now
-                CounselorHistoryScreen()
+                // HistoryScreen's parameter is 'navController'
+                HistoryScreen(navController = mainNavController)
             }
             composable(CounselorScreen.Chat.route) {
-                // Placeholder for now
-                CounselorChatScreen()
+                // <-- UPDATED: This is the "Chat" tab's content
+                ChatScreen(navController = mainNavController)
             }
             composable(CounselorScreen.Profile.route) {
                 // Placeholder for now

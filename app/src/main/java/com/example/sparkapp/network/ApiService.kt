@@ -1,8 +1,12 @@
 package com.example.sparkapp.network
 
 import com.example.sparkapp.network.GenericResponse
+import com.example.sparkapp.network.PostTestRequest // <-- ADDED IMPORT
 import com.example.sparkapp.network.ScenarioRequest
 import com.example.sparkapp.network.TestStatusResponse
+import com.example.sparkapp.data.Message // <-- ADD THIS IMPORT
+import com.example.sparkapp.network.SendMessageRequest // <-- ADD THIS IMPORT
+import com.example.sparkapp.network.SendMessageResponse // <-- ADD THIS IMPORT
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -29,20 +33,22 @@ interface ApiService {
     suspend fun getParentProfile(@Body data: Map<String, Int>): Response<Map<String, Any>> // We can make a ParentProfile class later
 
     // --- Counselor (`refferal.php`, `score.php`, `response.php`, `knowledge_response.php`, `check_completion.php`) ---
-    @POST("refferal.php")
-    suspend fun submitReferral(@Body data: Map<String, @JvmSuppressWildcards Any>): Response<Map<String, String>> // We can make a Referral data class later
+    @POST("refferal.php") // Matches the Flutter file's URL
+    suspend fun submitReferral(@Body request: ReferralRequest): Response<GenericResponse> // We can make a Referral data class later
 
     @POST("score.php")
     suspend fun submitPreTestScore(@Body data: Map<String, @JvmSuppressWildcards Any>): Response<Map<String, String>>
-
+    @POST("send.php")
+    suspend fun sendMessage(@Body request: SendMessageRequest): Response<SendMessageResponse>
     // Updated function
     @POST("response.php")
     suspend fun submitScenarioResponse(
         @Body request: ScenarioRequest
     ): Response<GenericResponse>
 
+    // Updated function
     @POST("knowledge_response.php")
-    suspend fun submitPostTest(@Body data: Map<String, @JvmSuppressWildcards Any>): Response<Map<String, String>>
+    suspend fun submitPostTest(@Body request: PostTestRequest): Response<GenericResponse>
 
     // Updated function
     @GET("check_completion.php")
@@ -60,7 +66,7 @@ interface ApiService {
 
     // --- Counselor (`score_display.php`) ---
     @GET("score_display.php")
-    suspend fun getScoreHistory(): Response<Map<String, Any>>
+    suspend fun getScoreHistory(): Response<ScoreHistoryResponse>
 
     // --- Chat (`send.php`, `get_message.php`) ---
     @POST("send.php")
@@ -68,4 +74,5 @@ interface ApiService {
 
     @GET("get_message.php")
     suspend fun getMessages(@Query("receiver_id") receiverId: String): Response<List<Map<String, Any>>>
+
 }
