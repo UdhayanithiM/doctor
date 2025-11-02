@@ -1,5 +1,8 @@
 package com.example.sparkapp.network
 
+import com.example.sparkapp.network.GenericResponse
+import com.example.sparkapp.network.ScenarioRequest
+import com.example.sparkapp.network.TestStatusResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -32,18 +35,21 @@ interface ApiService {
     @POST("score.php")
     suspend fun submitPreTestScore(@Body data: Map<String, @JvmSuppressWildcards Any>): Response<Map<String, String>>
 
+    // Updated function
     @POST("response.php")
-    suspend fun submitScenarioResponse(@Body data: Map<String, @JvmSuppressWildcards Any>): Response<Map<String, String>>
+    suspend fun submitScenarioResponse(
+        @Body request: ScenarioRequest
+    ): Response<GenericResponse>
 
     @POST("knowledge_response.php")
     suspend fun submitPostTest(@Body data: Map<String, @JvmSuppressWildcards Any>): Response<Map<String, String>>
 
-    // This is for check_completion.php
+    // Updated function
     @GET("check_completion.php")
-    suspend fun checkTestCompletion(
+    suspend fun checkTestStatus(
         @Query("test_type") testType: String,
         @Query("user_key") userKey: String
-    ): Response<Map<String, String>>
+    ): Response<TestStatusResponse>
 
     // --- Doctor (`doc_referal.php`, `get_score.php`) ---
     @GET("doc_referal.php")

@@ -65,17 +65,18 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 
-    // REMOVE both of the old lines
-    // implementation("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
-    // kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0") // <-- USE THIS
+    // --- UPDATED DEPENDENCIES ---
+    // Video Player (Media3/ExoPlayer) - Updated to new versions
+    implementation("androidx.media3:media3-exoplayer:1.3.1") // Was 1.2.0
+    implementation("androidx.media3:media3-ui:1.3.1")       // Was 1.2.0
 
-// Video Player (Media3/ExoPlayer)
-    implementation("androidx.media3:media3-exoplayer:1.2.0")
-    implementation("androidx.media3:media3-ui:1.2.0")
+    // Needed to host the Android PlayerView inside a Composable
+    implementation("androidx.compose.ui:ui-viewbinding:1.6.7")
+    // --- END OF UPDATES ---
 
-// ViewModel & Navigation
+    // ViewModel & Navigation
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.5")
 }

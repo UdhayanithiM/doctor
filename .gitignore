@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Ignore video files in the raw resource folder
+/app/src/main/res/raw/*.mp4
+/app/src/main/res/raw/*.mov
+/app/src/main/res/raw/*.avi
+/app/src/main/res/raw/*.mkv
+/app/src/main/res/raw/*.webm

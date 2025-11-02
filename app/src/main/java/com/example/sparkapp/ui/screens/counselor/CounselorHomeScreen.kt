@@ -39,7 +39,7 @@ fun CounselorHomeScreen(mainNavController: NavController) {
             title = "Learning Module",
             onClick = {
                 // This is your Navigator.push to PreTestScreen
-                mainNavController.navigate(AppRoutes.PRE_TEST)
+                mainNavController.navigate("module") // <-- This line is updated
             }
         )
 
