@@ -131,9 +131,19 @@ fun MainNavigation() {
             ScenarioScreen(navController = navController)
         }
 
+        // --- THIS IS THE FIXED BLOCK ---
         composable(route = "checklist") {
-            ChecklistScreen(navController = navController)
+            ChecklistScreen(
+                onProceed = {
+                    // Navigate to the post-test (route name is "post_test")
+                    navController.navigate("post_test")
+                },
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
         }
+        // --- END OF FIX ---
 
         composable("post_test") {
             PostTestScreen(navController = navController)

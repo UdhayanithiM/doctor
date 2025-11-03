@@ -68,9 +68,12 @@ dependencies {
     // Networking (Retrofit for API calls, Moshi for JSON)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+    // --- THIS IS THE FIX (using the versions from your snippet) ---
+    implementation("com.squareup.moshi:moshi:1.15.0") // <-- THIS LINE WAS MISSING
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0") // <-- This line was "1.14.0", now updated
+
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0") // You can also update this to 1.15.0
     implementation("com.google.code.gson:gson:2.10.1")
     // For Swipe-to-Refresh
     implementation("com.google.accompanist:accompanist-swiperefresh:0.31.0-alpha")
@@ -87,5 +90,8 @@ dependencies {
     // ViewModel & Navigation
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.5")
+
+    // --- THIS IS THE NEW LINE YOU NEED TO ADD ---
+    implementation(libs.androidx.datastore.preferences)
 
 }

@@ -2,6 +2,9 @@ package com.example.sparkapp.ui.screens.login
 
 import android.app.Application
 import android.content.Context
+//
+// --- ALL THESE IMPORTS ARE REQUIRED TO FIX THE ERRORS ---
+//
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -13,12 +16,16 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+//
+// --- END OF REQUIRED IMPORTS ---
+//
 
 // Create the DataStore
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "spark_app_prefs")
 
 class DataStoreViewModel(application: Application) : AndroidViewModel(application) {
 
+    // This property was missing the 'application.' prefix
     private val dataStore = application.dataStore
 
     companion object {

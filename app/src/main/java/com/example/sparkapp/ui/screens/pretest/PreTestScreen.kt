@@ -7,8 +7,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.CheckCircleOutline
-import androidx.compose.material.icons.filled.ErrorOutline
+// --- FIX 2: Import from .outlined ---
+import androidx.compose.material.icons.outlined.CheckCircleOutline
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -84,7 +85,8 @@ fun PreTestScreen(
                         viewModel.onAnswerSelected(qIndex, aIndex)
                     },
                     onSubmit = {
-                        viewModel.submitQuiz(context)
+                        // --- FIX 1: Removed 'context' parameter ---
+                        viewModel.submitQuiz()
                     }
                 )
             }
@@ -127,7 +129,8 @@ fun LoadingScreen() {
 fun CompletedScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize().padding(20.dp), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(Icons.Default.CheckCircleOutline, modifier = Modifier.size(80.dp), tint = Color.Green)
+            // --- FIX 2: Changed to .Outlined ---
+            Icon(Icons.Outlined.CheckCircleOutline, contentDescription = "Test Completed", modifier = Modifier.size(80.dp), tint = Color.Green)
             Spacer(Modifier.height(20.dp))
             Text("Test Already Completed", fontSize = 22.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
             Spacer(Modifier.height(10.dp))
@@ -153,7 +156,8 @@ fun CompletedScreen(navController: NavController) {
 fun ErrorScreen(message: String, onTryAgain: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize().padding(20.dp), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(Icons.Default.ErrorOutline, modifier = Modifier.size(80.dp), tint = Color.Red)
+            // --- FIX 2: Changed to .Outlined ---
+            Icon(Icons.Outlined.ErrorOutline, contentDescription = "Error", modifier = Modifier.size(80.dp), tint = Color.Red)
             Spacer(Modifier.height(20.dp))
             Text("Error", fontSize = 22.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
             Text(message, fontSize = 16.sp, textAlign = TextAlign.Center)

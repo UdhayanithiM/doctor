@@ -62,13 +62,15 @@ class PreTestViewModel : ViewModel() {
 
             try {
                 // Call the new API endpoint
-                val response = RetrofitClient.instance.checkTestCompletion(
+                // --- FIX 1: Renamed 'checkTestCompletion' to 'checkTestStatus' (matches ApiService.kt) ---
+                val response = RetrofitClient.instance.checkTestStatus(
                     testType = "pretest",
                     userKey = username
                 )
 
                 if (response.isSuccessful && response.body() != null) {
-                    when (response.body()!!["status"]) {
+                    // --- FIX 2: Accessing the '.status' property directly (matches TestStatusResponse.kt) ---
+                    when (response.body()!!.status) {
                         "completed" -> _uiState.value = PreTestUiState.Completed
                         "not_completed" -> _uiState.value = PreTestUiState.Quiz(questions)
                         else -> _uiState.value = PreTestUiState.Error("Invalid status from server.")
@@ -91,7 +93,8 @@ class PreTestViewModel : ViewModel() {
     }
 
     // This is your 'submitQuiz()' function
-    fun submitQuiz(context: Context) {
+    // --- FIX 3: Removed unused 'context' parameter to fix the warning ---
+    fun submitQuiz() {
         viewModelScope.launch {
             // 1. Calculate score
             var score = 0

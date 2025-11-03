@@ -7,28 +7,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitClient {
 
-    // -----------------------------------------------------------------
-    // !! IMPORTANT !!
-    // YOU MUST CHANGE THIS URL
-    //
-    // How to find your IP:
-    // - Windows: Open 'cmd' and type 'ipconfig'. Look for 'IPv4 Address'.
-    // - Mac/Linux: Open 'Terminal' and type 'ifconfig'. Look for 'inet'.
-    //
-    // It will look like "http://192.168.1.10/"
-    // -----------------------------------------------------------------
-
-    //
-    // ▼▼▼ THIS IS THE FIX ▼▼▼
-    //
-    // 1. It must be in quotes ("...") to be a String.
-    // 2. It must start with "http://" or "https://".
-    // 3. It must end with a "/" for Retrofit.
-    //
-    private const val BASE_URL = "http://10.0.2.2/doctor/" // <-- 1. ADDED QUOTES, 2. ADDED "http://", 3. ADDED "/"
+    // Your IP address from the previous step
+    private const val BASE_URL = "http://10.75.236.149/doctor/"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
+       // <-- This will now be resolved and will fix the app crash
         .build()
 
     val instance: ApiService by lazy {
