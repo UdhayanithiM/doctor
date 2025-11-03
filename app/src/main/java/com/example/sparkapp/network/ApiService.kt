@@ -1,12 +1,17 @@
 package com.example.sparkapp.network
 
 import com.example.sparkapp.network.GenericResponse
-import com.example.sparkapp.network.PostTestRequest // <-- ADDED IMPORT
+import com.example.sparkapp.network.PostTestRequest
 import com.example.sparkapp.network.ScenarioRequest
 import com.example.sparkapp.network.TestStatusResponse
-import com.example.sparkapp.data.Message // <-- ADD THIS IMPORT
-import com.example.sparkapp.network.SendMessageRequest // <-- ADD THIS IMPORT
-import com.example.sparkapp.network.SendMessageResponse // <-- ADD THIS IMPORT
+import com.example.sparkapp.data.Message
+import com.example.sparkapp.network.SendMessageRequest
+import com.example.sparkapp.network.SendMessageResponse
+import com.example.sparkapp.network.ProfileResponse
+import com.example.sparkapp.network.ReferralResponse
+import com.example.sparkapp.network.MessageResponse
+import com.example.sparkapp.network.ScoreboardResponse
+import com.example.sparkapp.network.ParentProfileResponse // <-- ADDED IMPORT
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -24,13 +29,14 @@ interface ApiService {
 
     // --- Profile (`profile.php`, `parentprofile.php`) ---
     @GET("profile.php")
-    suspend fun getProfile(@Query("email") email: String): Response<Map<String, Any>> // We can make a Profile data class later
+    suspend fun getProfile(@Query("email") email: String): Response<ProfileResponse> // <-- Use ProfileResponse
 
     @POST("profile.php")
     suspend fun updateProfile(@Body data: Map<String, String>): Response<Map<String, String>>
 
+    // --- THIS FUNCTION IS UPDATED ---
     @POST("parentprofile.php")
-    suspend fun getParentProfile(@Body data: Map<String, Int>): Response<Map<String, Any>> // We can make a ParentProfile class later
+    suspend fun getParentProfile(@Body request: Map<String, Int>): Response<ParentProfileResponse>
 
     // --- Counselor (`refferal.php`, `score.php`, `response.php`, `knowledge_response.php`, `check_completion.php`) ---
     @POST("refferal.php") // Matches the Flutter file's URL
@@ -38,8 +44,10 @@ interface ApiService {
 
     @POST("score.php")
     suspend fun submitPreTestScore(@Body data: Map<String, @JvmSuppressWildcards Any>): Response<Map<String, String>>
+
     @POST("send.php")
     suspend fun sendMessage(@Body request: SendMessageRequest): Response<SendMessageResponse>
+
     // Updated function
     @POST("response.php")
     suspend fun submitScenarioResponse(
@@ -57,22 +65,22 @@ interface ApiService {
         @Query("user_key") userKey: String
     ): Response<TestStatusResponse>
 
-    // --- Doctor (`doc_referal.php`, `get_score.php`) ---
-    @GET("doc_referal.php")
-    suspend fun getReferrals(): Response<List<Map<String, Any>>> // We can make a Referral data class later
-
-    @GET("get_score.php")
-    suspend fun getScenarioScores(): Response<List<Map<String, Any>>>
-
     // --- Counselor (`score_display.php`) ---
     @GET("score_display.php")
     suspend fun getScoreHistory(): Response<ScoreHistoryResponse>
 
-    // --- Chat (`send.php`, `get_message.php`) ---
-    @POST("send.php")
-    suspend fun sendMessage(@Body data: Map<String, String>): Response<Map<String, Any>>
+    // --- Doctor (`doc_referal.php`, `get_score.php`) ---
+    @GET("doc_referal.php")
+    suspend fun getDoctorReferrals(): Response<List<ReferralResponse>> // <-- UPDATED
 
+    @GET("get_score.php")
+    suspend fun getScoreboard(): Response<List<ScoreboardResponse>> // <-- UPDATED
+
+    // --- Chat (`get_message.php`) ---
     @GET("get_message.php")
-    suspend fun getMessages(@Query("receiver_id") receiverId: String): Response<List<Map<String, Any>>>
+    suspend fun getMessages(
+        @Query("sender_id") senderId: String,
+        @Query("receiver_id") receiverId: String
+    ): Response<List<MessageResponse>> // <-- UPDATED
 
 }

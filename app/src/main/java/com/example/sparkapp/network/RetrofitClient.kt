@@ -25,7 +25,7 @@ object RetrofitClient {
     // 2. It must start with "http://" or "https://".
     // 3. It must end with a "/" for Retrofit.
     //
-    private const val BASE_URL = "http://192.168.31.246/" // <-- 1. ADDED QUOTES, 2. ADDED "http://", 3. ADDED "/"
+    private const val BASE_URL = "http://10.0.2.2/doctor/" // <-- 1. ADDED QUOTES, 2. ADDED "http://", 3. ADDED "/"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

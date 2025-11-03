@@ -19,8 +19,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.sparkapp.ui.screens.chat.ChatScreen // <-- ADDED IMPORT
+import com.example.sparkapp.ui.screens.chat.ChatScreen
 import com.example.sparkapp.ui.screens.history.HistoryScreen
+import com.example.sparkapp.ui.screens.counselor.CounselorProfileScreen // <-- ADDED IMPORT
 import com.example.sparkapp.ui.theme.SparkAppPurple
 
 // --- This sealed class defines the 4 tabs ---
@@ -42,7 +43,10 @@ val counselorBottomNavItems = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CounselorDashboardScreen(mainNavController: NavController) {
+fun CounselorDashboardScreen(
+    mainNavController: NavController,
+    onLogout: () -> Unit // <-- UPDATED SIGNATURE
+) {
     // This creates a *new, nested* NavController just for the 4 tabs
     val tabNavController = rememberNavController()
 
@@ -120,8 +124,10 @@ fun CounselorDashboardScreen(mainNavController: NavController) {
                 ChatScreen(navController = mainNavController)
             }
             composable(CounselorScreen.Profile.route) {
-                // Placeholder for now
-                CounselorProfileScreen()
+                // <-- UPDATED: This now passes the logout handler
+                CounselorProfileScreen(
+                    onLogout = onLogout // Pass the logout lambda down
+                )
             }
         }
     }

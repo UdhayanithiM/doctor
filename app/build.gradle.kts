@@ -71,6 +71,9 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    // For Swipe-to-Refresh
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.31.0-alpha")
 
     // --- UPDATED DEPENDENCIES (from your file) ---
     // Video Player (Media3/ExoPlayer) - Updated to new versions
